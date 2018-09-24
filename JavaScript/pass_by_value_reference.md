@@ -26,8 +26,8 @@ The second case is demonstrated here:
 
 ```js
 const nums = [10, 20, 30];
-function addOne(copy) {
-  const copy = nums;
+function addOne(arr) {
+  const copy = arr;
   copy.push(100);
   return copy;
 }
