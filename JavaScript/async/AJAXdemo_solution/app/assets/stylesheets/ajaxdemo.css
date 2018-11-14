@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "MACHINE";
+  src: url("machine2.ttf")
+}
+
+body {
+  display: grid;
+  min-height: 90vh;
+  grid-template-columns: 100px 1fr 1fr 1fr 1fr 100px;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  background-image: url("background.jpg");
+  background-size: cover;
+}
+
+h1 {
+  grid-column: 3 / 5;
+  text-align: center;
+  font-family: "MACHINE";
+  font-size: 100px;
+  color: white;
+  text-shadow: 2px 2px brown;
+
+}
+
+#new-gif-form {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 50px;
+}
+
+#old-gif-form {
+  grid-column: 2 / 4;
+  grid-row: 3 / 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 50px;
+}
+
+#callback-hell-form {
+  grid-column: 2 / 4;
+  grid-row: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 50px;
+}
+
+#save-gif-form {
+  grid-column: 4 / 6;
+  grid-row: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 50px;
+}
+
+label {
+  font-family: "MACHINE";
+  color: white;
+  font-size: 40px;
+}
+
+input[type="text"] {
+  padding: 5px;
+  width: 200px;
+  height: inherit;
+  transition-property: all;
+  transition-duration: 2s;
+}
+
+input[type="text"]:focus {
+  width: 400px;
+  height: 50px;
+  font-size: 30px;
+  border-radius: 20px;
+  outline: none;
+}
+
+input[type="submit"] {
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  margin: 0 auto;
+  font-size: x-large;
+}
+
+.gif-display {
+  border: 8px solid #ffffff;
+  background-color: #000000;
+  grid-column: 4 / 6;
+  grid-row: 2 / 4;
+  margin: 50px;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.clear {
+  grid-column-start: 4;
+  grid-row-start: 2;
+  height: 25px;
+  width: 75px;
+  margin-left: 50px;
+}
+
+.messages {
+  margin: 0;
+  grid-column: 4 / 7;
+  grid-row-start: 2;
+  height: 25px;
+  width: auto;
+  margin-left: 150px;
+  font-family: "MACHINE";
+  color: white;
+  font-size: 30px;
+}
+
+.gif {
+  height: 400px;
+  max-width: 404px;
+  object-fit: cover;
+  margin: 0 auto;
+}
