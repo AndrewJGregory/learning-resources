@@ -52,7 +52,6 @@ const GifAPIUtil = {
         }
       };
       xhr.open("GET", `/gifs/${title}`);
-      const csrfToken = $('meta[name="csrf-token"]').attr("content");
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.send(JSON.stringify({ gif: { title } }));
     },
