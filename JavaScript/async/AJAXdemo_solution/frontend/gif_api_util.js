@@ -45,6 +45,10 @@ const GifAPIUtil = {
       return $.ajax({
         method: "GET",
         url: `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
+        success: res => {
+          const url = res.data.image_url;
+          appendGif(url);
+        },
       });
     },
     saveGif: gif => {
@@ -68,7 +72,14 @@ const GifAPIUtil = {
     getNewGif: queryString => {
       return fetch(
         `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
-      );
+      )
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          const url = res.data.image_url;
+          appendGif(url);
+        });
     },
     saveGif: gif => {
       return fetch("/gifs", {
