@@ -65,7 +65,7 @@ const GifAPIUtil = {
   },
 
   fetch: {
-    newGifFetch: queryString => {
+    getNewGif: queryString => {
       return fetch(
         `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
       );
