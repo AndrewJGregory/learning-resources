@@ -7,6 +7,16 @@ const appendGif = gifUrl => {
 const GifAPIUtil = {
   XMLHttpRequest: {
     getNewGif: queryString => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          const url = JSON.parse(xhr.response).data.image_url;
+          appendGif(url);
+        }
+      };
+      xhr.open("GET", `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`);
+      xhr.send();
+    },
       const req = new XMLHttpRequest();
       req.addEventListener("load", e => {
         const url = JSON.parse(e.currentTarget.response).data.image_url;
