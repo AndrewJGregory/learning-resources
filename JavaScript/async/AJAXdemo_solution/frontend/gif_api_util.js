@@ -39,7 +39,23 @@ const GifAPIUtil = {
       xhr.send(JSON.stringify({ gif }));
     },
 
-    getSavedGif: title => {},
+    getSavedGif: title => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          const res = JSON.parse(xhr.response);
+          if (xhr.status === 200) {
+            appendGif(res.url);
+          } else {
+            $(".messages").html(res.join(", "));
+          }
+        }
+      };
+      xhr.open("GET", `/gifs/${title}`);
+      const csrfToken = $('meta[name="csrf-token"]').attr("content");
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify({ gif: { title } }));
+    },
   },
 
   AJAX: {
@@ -69,7 +85,19 @@ const GifAPIUtil = {
       });
     },
 
-    getSavedGif: title => {},
+    getSavedGif: title => {
+      return $.ajax({
+        method: "GET",
+        url: `/gifs/${title}`,
+        data: { gif: { title } },
+        success: gif => {
+          appendGif(gif.url);
+        },
+        error: errors => {
+          $(".messages").html(errors.responseJSON.join(", "));
+        },
+      });
+    },
   },
 
   fetch: {
@@ -113,7 +141,25 @@ const GifAPIUtil = {
         );
     },
 
-    getSavedGif: title => {},
+    getSavedGif: title => {
+      return fetch(`/gifs/${title}`)
+        .then(res => {
+          if (!res.ok) {
+            throw res;
+          }
+          return res.json();
+        })
+        .then(
+          res => {
+            appendGif(res.url);
+          },
+          err => {
+            err.json().then(errorMsgs => {
+              $(".messages").html(errorMsgs.join(", "));
+            });
+          },
+        );
+    },
   },
 
   asyncAwait: {
