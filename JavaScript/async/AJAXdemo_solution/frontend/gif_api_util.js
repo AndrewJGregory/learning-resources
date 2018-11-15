@@ -19,6 +19,7 @@ const GifAPIUtil = {
       );
       xhr.send();
     },
+
     saveGif: gif => {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
@@ -37,6 +38,7 @@ const GifAPIUtil = {
       xhr.setRequestHeader("x-csrf-token", csrfToken);
       xhr.send(JSON.stringify({ gif }));
     },
+
     getSavedGif: title => {},
   },
 
@@ -51,6 +53,7 @@ const GifAPIUtil = {
         },
       });
     },
+
     saveGif: gif => {
       return $.ajax({
         method: "POST",
@@ -65,6 +68,7 @@ const GifAPIUtil = {
         },
       });
     },
+
     getSavedGif: title => {},
   },
 
@@ -81,6 +85,7 @@ const GifAPIUtil = {
           appendGif(url);
         });
     },
+
     saveGif: gif => {
       return fetch("/gifs", {
         method: "POST",
