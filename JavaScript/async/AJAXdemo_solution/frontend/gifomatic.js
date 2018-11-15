@@ -38,7 +38,7 @@ $(() => {
 
 // ------------- GIF ACTIONS - fetchNew, save, and fetchSaved ---------------
 
-const fetchNewGif = () => {
+const getNewGif = () => {
   const $input = $("#new-gif-query");
   const queryString = $input.val();
   $input.val("");
@@ -56,7 +56,7 @@ const saveGif = e => {
   // TODO: Initiate AJAX request to Rails backend, give a message if successful
 };
 
-const fetchSavedGif = () => {
+const getSavedGif = () => {
   const $input = $("#old-gif-query");
   const title = $input.val();
   $input.val("");
