@@ -19,6 +19,7 @@ The workflow for this should be as follows:
 
 0.
 
+- Git clone this repo
 - `bundle install`
 - `npm i`
 - `rails db:setup`
