@@ -8,7 +8,7 @@ const appendGif = gifUrl => {
 const setEventHandlers = () => {
   $("#new-gif-form").on("submit", e => {
     e.preventDefault();
-    fetchNewGif();
+    getNewGif();
   });
 
   $("#save-gif-form").on("submit", e => {
