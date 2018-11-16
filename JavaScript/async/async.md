@@ -48,7 +48,7 @@ Same thing for `fetch`. After finishing `getNewGif` for `fetch`, then you would 
 
 ## BONUSES
 
-In order of importance ad time commitment::
+In order of importance and time commitment:
 
 - Finish `callbackHell` in the bottom of `gif_api_util`. Do **not** use promises, only callbacks.
 - Convert all of the jQuery DOM manipulation to vanilla JS.
