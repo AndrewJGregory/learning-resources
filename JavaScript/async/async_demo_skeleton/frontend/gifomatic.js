@@ -1,10 +1,5 @@
 const GifApiUtil = require("./gif_api_util");
 
-const appendGif = gifUrl => {
-  $(".gif-display").empty();
-  $(".gif-display").append($(`<img class="gif" src=${gifUrl} />`));
-};
-
 const setEventHandlers = () => {
   $("#new-gif-form").on("submit", e => {
     e.preventDefault();

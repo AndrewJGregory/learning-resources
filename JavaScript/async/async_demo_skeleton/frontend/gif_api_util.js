@@ -1,3 +1,8 @@
+const appendGif = gifUrl => {
+  $(".gif-display").empty();
+  $(".gif-display").append($(`<img class="gif" src=${gifUrl} />`));
+};
+
 const GifAPIUtil = {
   XMLHttpRequest: {
     getNewGif: queryString => {},
