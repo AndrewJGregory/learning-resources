@@ -1,67 +1,71 @@
 const GifApiUtil = require("./gif_api_util");
 
-const appendGif = gifUrl => {
-  $(".gif-display").empty();
-  $(".gif-display").append($(`<img class="gif" src=${gifUrl} />`));
-};
-
 const setEventHandlers = () => {
-  $("#new-gif-form").on("submit", e => {
-    e.preventDefault();
-    getNewGif();
+  const elements = [
+    {
+      id: "new-gif-form",
+      callback: getNewGif,
+    },
+    {
+      id: "save-gif-form",
+      callback: saveGif,
+    },
+    {
+      id: "old-gif-form",
+      callback: getSavedGif,
+    },
+    {
+      id: "callback-hell-form",
+      callback: callbackHell,
+    },
+  ];
+
+  elements.forEach(element => {
+    document.getElementById(element.id).addEventListener("submit", e => {
+      e.preventDefault();
+      element["callback"]();
+    });
   });
 
-  $("#save-gif-form").on("submit", e => {
-    e.preventDefault();
-    saveGif();
-  });
-
-  $("#old-gif-form").on("submit", e => {
-    e.preventDefault();
-    getSavedGif();
-  });
-
-  $("#callback-hell-form").on("submit", e => {
-    e.preventDefault();
-    callbackHell();
-  });
-
-  $(".clear").on("click", () => {
-    $(".gif-display").empty();
-    $(".messages").empty();
+  document.querySelector(".clear").addEventListener("click", () => {
+    document.querySelector(".gif-display").innerHTML = "";
+    document.querySelector(".messages").innerHTML = "";
   });
 };
 
-$(() => {
-  setEventHandlers();
-});
+document.addEventListener("DOMContentLoaded", setEventHandlers);
 
 // ------------- GIF ACTIONS - fetchNew, save, and fetchSaved ---------------
 
 const getNewGif = () => {
-  const $input = $("#new-gif-query");
-  const queryString = $input.val();
-  $input.val("");
+  const input = document.getElementById("new-gif-query");
+  const queryString = input.value;
+  input.value = "";
+
+  // TODO: Initiate request to giphy api endpoint, add gif to the the DOM
+  GifApiUtil.fetch.getNewGif(queryString);
 };
 
 const saveGif = e => {
-  const $input = $("#save-gif-title");
-  const title = $input.val();
-  $input.val("");
+  const input = document.getElementById("save-gif-title");
+  const title = input.value;
+  input.value = "";
   const gif = {
-    title: title,
-    url: $(".gif-display > img").attr("src"),
+    title,
+    url: document.querySelector(".gif-display > img").src,
   };
 
   // TODO: Initiate AJAX request to Rails backend, give a message if successful
+  GifApiUtil.fetch.saveGif(gif);
 };
 
 const getSavedGif = () => {
-  const $input = $("#old-gif-query");
-  const title = $input.val();
-  $input.val("");
+  const input = document.getElementById("old-gif-query");
+  const title = input.value;
+  input.value = "";
 
   // TODO: Initate AJAX request to Rails backend, add gif to the DOM if successful
+  GifApiUtil.fetch.getSavedGif(title);
 };
 
 // ------------- CALLBACK HELL ---------------

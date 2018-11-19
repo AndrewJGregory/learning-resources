@@ -1,7 +1,23 @@
 const appendGif = gifUrl => {
-  $(".gif-display").empty();
-  $(".gif-display").append($(`<img class="gif" src=${gifUrl} />`));
+  const gifDisplay = document.querySelector(".gif-display");
+  gifDisplay.innerHTML = "";
+  const img = document.createElement("img");
+  img.classList.add("gif");
+  img.src = gifUrl;
+  gifDisplay.appendChild(img);
 };
+
+const setMessageText = msg => {
+  document.querySelector(".messages").innerHTML = msg;
+};
+
+const displaySuccessMsg = () => {
+  const successMsg = "successfully saved";
+  setMessageText(successMsg);
+};
+
+const findCsrfToken = () =>
+  document.querySelector('meta[name="csrf-token"]').content;
 
 const GifAPIUtil = {
   XMLHttpRequest: {
@@ -25,15 +41,15 @@ const GifAPIUtil = {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            $(".messages").html("successfully saved");
+            displaySuccessMsg();
           } else {
             const errorMsgs = JSON.parse(xhr.response);
-            $(".messages").html(errorMsgs.join(", "));
+            setMessageText(errorMsgs.join(", "));
           }
         }
       };
       xhr.open("POST", "/gifs");
-      const csrfToken = $('meta[name="csrf-token"]').attr("content");
+      const csrfToken = findCsrfToken();
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.setRequestHeader("x-csrf-token", csrfToken);
       xhr.send(JSON.stringify({ gif }));
@@ -47,7 +63,7 @@ const GifAPIUtil = {
           if (xhr.status === 200) {
             appendGif(res.url);
           } else {
-            $(".messages").html(res.join(", "));
+            setMessageText(res.join(", "));
           }
         }
       };
@@ -75,11 +91,11 @@ const GifAPIUtil = {
         url: "/gifs",
         data: { gif },
         success: gif => {
-          $(".messages").html("successfully saved");
+          displaySuccessMsg();
         },
         error: res => {
           const errorMsgs = res.responseJSON;
-          $(".messages").html(errorMsgs.join(", "));
+          setMessageText(errorMsgs.join(", "));
         },
       });
     },
@@ -93,7 +109,7 @@ const GifAPIUtil = {
           appendGif(gif.url);
         },
         error: errors => {
-          $(".messages").html(errors.responseJSON.join(", "));
+          setMessageText(errors.responseJSON.join(", "));
         },
       });
     },
@@ -119,7 +135,7 @@ const GifAPIUtil = {
         body: JSON.stringify(gif),
         headers: {
           "Content-Type": "application/json",
-          "x-csrf-token": $('meta[name="csrf-token"]').attr("content"),
+          "x-csrf-token": findCsrfToken(),
         },
       })
         .then(res => {
@@ -130,11 +146,11 @@ const GifAPIUtil = {
         })
         .then(
           response => {
-            $(".messages").html("successfully saved");
+            displaySuccessMsg();
           },
           err => {
             err.json().then(errorMsgs => {
-              $(".messages").html(errorMsgs.join(", "));
+              setMessageText(errorMsgs.join(", "));
             });
           },
         );
@@ -154,7 +170,7 @@ const GifAPIUtil = {
           },
           err => {
             err.json().then(errorMsgs => {
-              $(".messages").html(errorMsgs.join(", "));
+              setMessageText(errorMsgs.join(", "));
             });
           },
         );
