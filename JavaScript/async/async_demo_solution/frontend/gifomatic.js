@@ -1,5 +1,4 @@
-const GifApiUtil = require("./gif_api_util");
-
+import { GifApiUtil, appendGif } from "./gif_api_util";
 const setEventHandlers = () => {
   const elements = [
     {
@@ -74,6 +73,41 @@ const callbackHell = () => {
   const $input = $("#callback-hell-query");
   const title = $input.val();
   $input.val("");
+  return $.ajax({
+    method: "GET",
+    url: `/gifs/${title}`,
+    dataType: "json",
+    success: gif => {
+      // gif exists in DB
+      appendGif(gif.url);
+    },
+    error: response => {
+      // gif doesn't exist
+      $(".messages").text(`${response.responseJSON[0]} Fetching new gif...`);
+      return $.ajax({
+        method: "GET",
+        url: `https://api.giphy.com/v1/gifs/random?tag=${title}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
+        success: (
+          gif, // giphy call is successful
+        ) => {
+          const url = gif.data.image_url;
+          appendGif(url);
+          gif = { title: title, url: url };
+          return $.ajax({
+            // save gif to db
+            method: "POST",
+            url: "/gifs",
+            data: {
+              gif: gif,
+            },
+            success: savedGif => {
+              $(".messages").text("Successfully saved!");
+            },
+          });
+        },
+      });
+    },
+  });
   // TODO:
   // Search our database for a gif with a certain query
   // If the gif exists, display the gif

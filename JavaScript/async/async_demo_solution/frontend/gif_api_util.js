@@ -1,4 +1,4 @@
-const appendGif = gifUrl => {
+export const appendGif = gifUrl => {
   const gifDisplay = document.querySelector(".gif-display");
   gifDisplay.innerHTML = "";
   const img = document.createElement("img");
@@ -19,7 +19,7 @@ const displaySuccessMsg = () => {
 const findCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]').content;
 
-const GifAPIUtil = {
+export const GifApiUtil = {
   XMLHttpRequest: {
     getNewGif: queryString => {
       const xhr = new XMLHttpRequest();
@@ -188,5 +188,3 @@ const GifAPIUtil = {
     },
   },
 };
-
-module.exports = GifAPIUtil;
