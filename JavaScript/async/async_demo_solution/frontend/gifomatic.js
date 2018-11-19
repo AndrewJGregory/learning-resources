@@ -18,7 +18,7 @@ const setEventHandlers = () => {
 
   $("#old-gif-form").on("submit", e => {
     e.preventDefault();
-    fetchSavedGif();
+    getSavedGif();
   });
 
   $("#callback-hell-form").on("submit", e => {
