@@ -81,9 +81,9 @@ const callbackHell = () => {
       // gif exists in DB
       appendGif(gif.url);
     },
-    error: response => {
+    error: ({ responseJSON }) => {
       // gif doesn't exist
-      $(".messages").text(`${response.responseJSON[0]} Fetching new gif...`);
+      $(".messages").text(`${responseJSON.join(" ")} Fetching new gif...`);
       return $.ajax({
         method: "GET",
         url: `https://api.giphy.com/v1/gifs/random?tag=${title}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
@@ -92,7 +92,7 @@ const callbackHell = () => {
         ) => {
           const url = gif.data.image_url;
           appendGif(url);
-          gif = { title: title, url: url };
+          gif = { title, url };
           return $.ajax({
             // save gif to db
             method: "POST",
