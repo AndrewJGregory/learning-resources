@@ -177,12 +177,29 @@ export const GifApiUtil = {
 
   asyncAwait: {
     getNewGif: async queryString => {
-      let res = await fetch(
-        `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
-      );
+      let res = await fetch(makeUrl(queryString));
       res = await res.json();
       const url = res.data.image_url;
       appendGif(url);
+    },
+
+    saveGif: async gif => {
+      let res = await fetch("/gifs", {
+        method: "POST",
+        body: JSON.stringify(gif),
+        headers: {
+          "Content-Type": "application/json",
+          "x-csrf-token": findCsrfToken(),
+        },
+      });
+      res = await res.json();
+      setMessageText(res.join(" "));
+    },
+
+    getSavedGif: async title => {
+      let res = await fetch(`/gifs/${title}`);
+      res = await res.json();
+      res.url ? appendGif(res.url) : setMessageText(res.join(" "));
     },
   },
 };
