@@ -19,6 +19,9 @@ const displaySuccessMsg = () => {
 const findCsrfToken = () =>
   document.querySelector('meta[name="csrf-token"]').content;
 
+const makeUrl = queryString =>
+  `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`;
+
 export const GifApiUtil = {
   XMLHttpRequest: {
     getNewGif: queryString => {
@@ -29,10 +32,7 @@ export const GifApiUtil = {
           appendGif(url);
         }
       };
-      xhr.open(
-        "GET",
-        `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
-      );
+      xhr.open("GET", makeUrl(queryString));
       xhr.send();
     },
 
@@ -77,7 +77,7 @@ export const GifApiUtil = {
     getNewGif: queryString => {
       return $.ajax({
         method: "GET",
-        url: `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
+        url: makeUrl(queryString),
         success: res => {
           const url = res.data.image_url;
           appendGif(url);
@@ -117,9 +117,7 @@ export const GifApiUtil = {
 
   fetch: {
     getNewGif: queryString => {
-      return fetch(
-        `https://api.giphy.com/v1/gifs/random?tag=${queryString}&api_key=9IfxO6R6fpEZMAdqdw66QUgQdPejVIAW&rating=G`,
-      )
+      return fetch(makeUrl(queryString))
         .then(res => {
           return res.json();
         })
