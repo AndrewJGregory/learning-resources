@@ -1,6 +1,6 @@
 # React without Redux
 
-[slides link](https://docs.google.com/presentation/d/1rbdgVvPpZUEstzWfBL6A9Ed2NkQZeS0teSIrAkqgwvA/edit#slide=id.p)
+[slides link](https://docs.google.com/presentation/d/e/2PACX-1vSII1lyLb9NnctYFckT3r5p89WdN-8wHixmm6DdmwJ2IsVFJNzxy5-GzBWVjKtW7JpIi9_gcu0P1ccr/pub?start=false&loop=false&delayms=3000)
 
 To get started with this project:
 
