@@ -41,3 +41,13 @@ const readTheFile = path => {
     });
   });
 };
+
+// step 3: async await
+
+const hasNameAsyncAwait = async target => {
+  const names = await readTheFile("./data.csv");
+  const count = names.reduce((sum, name) => (name === target ? ++sum : sum), 0);
+  console.log(count);
+};
+
+hasNameAsyncAwait("Andrew");
