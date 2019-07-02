@@ -59,5 +59,3 @@ const hasNameAsyncAwait = async target => {
 };
 
 const countInArr = (arr, target) => arr.filter(el => el === target).length;
-
-hasNameCallback("Andrew");
