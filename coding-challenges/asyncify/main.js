@@ -21,23 +21,32 @@ const hasName = target => {
 // step 2: promises
 
 const hasNamePromise = target => {
-  readTheFile("./data.csv").then(res => {
-    const count = res.reduce((sum, name) => (name === target ? ++sum : sum), 0);
-    console.log(count);
-  });
+  readTheFile("./data.csv").then(
+    res => {
+      const count = res.reduce(
+        (sum, name) => (name === target ? ++sum : sum),
+        0
+      );
+      console.log(count);
+    },
+    err => console.log(err)
+  );
 };
 
 const readTheFile = path => {
   return new Promise((resolve, reject) => {
     fs.readFile(path, (err, buffer) => {
-      if (err) reject(err);
-      const names = buffer
-        .toString()
-        .split("\n")
-        .slice(1)
-        .filter(str => str)
-        .map(str => JSON.parse(str.split(",")[1]));
-      resolve(names);
+      if (err) {
+        reject(err);
+      } else {
+        const names = buffer
+          .toString()
+          .split("\n")
+          .slice(1)
+          .filter(str => str)
+          .map(str => JSON.parse(str.split(",")[1]));
+        resolve(names);
+      }
     });
   });
 };
@@ -50,4 +59,4 @@ const hasNameAsyncAwait = async target => {
   console.log(count);
 };
 
-hasNameAsyncAwait("Andrew");
+hasNamePromise("Andrew");
