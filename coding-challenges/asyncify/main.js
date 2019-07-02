@@ -13,11 +13,7 @@ const hasNameCallback = target => {
         .slice(1)
         .filter(str => str)
         .map(str => JSON.parse(str.split(",")[1]));
-      const count = names.reduce(
-        (sum, name) => (name === target ? ++sum : sum),
-        0
-      );
-      console.log(count);
+      console.log(countInArr(names, target));
     }
   });
 };
@@ -27,11 +23,7 @@ const hasNameCallback = target => {
 const hasNamePromise = target => {
   readTheFile("./data.csv").then(
     res => {
-      const count = res.reduce(
-        (sum, name) => (name === target ? ++sum : sum),
-        0
-      );
-      console.log(count);
+      console.log(countInArr(res, target));
     },
     err => console.log(err)
   );
@@ -60,14 +52,12 @@ const readTheFile = path => {
 const hasNameAsyncAwait = async target => {
   try {
     const names = await readTheFile("./data.csv");
-    const count = names.reduce(
-      (sum, name) => (name === target ? ++sum : sum),
-      0
-    );
-    console.log(count);
+    console.log(countInArr(names, target));
   } catch (e) {
     console.log(e);
   }
 };
 
-hasName("Andrew");
+const countInArr = (arr, target) => arr.filter(el => el === target).length;
+
+hasNameCallback("Andrew");
