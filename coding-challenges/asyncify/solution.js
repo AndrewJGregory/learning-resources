@@ -7,12 +7,7 @@ const hasNameCallback = target => {
     if (err) {
       console.log(err);
     } else {
-      const names = buffer
-        .toString()
-        .split("\n")
-        .slice(1)
-        .filter(str => str)
-        .map(str => JSON.parse(str.split(",")[1]));
+      const { names } = parseBuffer(buffer);
       console.log(countInArr(names, target));
     }
   });
@@ -35,12 +30,7 @@ const readTheFile = path => {
       if (err) {
         reject(err);
       } else {
-        const names = buffer
-          .toString()
-          .split("\n")
-          .slice(1)
-          .filter(str => str)
-          .map(str => JSON.parse(str.split(",")[1]));
+        const { names } = parseBuffer(buffer);
         resolve(names);
       }
     });
@@ -59,3 +49,21 @@ const hasNameAsyncAwait = async target => {
 };
 
 const countInArr = (arr, target) => arr.filter(el => el === target).length;
+
+const parseBuffer = buffer => {
+  const data = { years: [], names: [], percents: [], sexes: [] };
+  const formattedStr = buffer
+    .toString()
+    .replace(/"/g, "")
+    .split("\n");
+  formattedStr.splice(0, 1);
+  formattedStr
+    .map(row => row.split(","))
+    .forEach(([year, name, percent, sex]) => {
+      data.years.push(year);
+      data.names.push(name);
+      data.percents.push(percent);
+      data.sexes.push(sex);
+    });
+  return data;
+};
