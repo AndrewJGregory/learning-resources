@@ -2,7 +2,7 @@ const fs = require("fs");
 
 // step 1: callback
 
-const hasName = target => {
+const hasNameCallback = target => {
   fs.readFile("./data.csv", (err, buffer) => {
     if (err) {
       console.log(err);
