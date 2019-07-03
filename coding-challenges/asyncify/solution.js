@@ -2,7 +2,7 @@ const fs = require("fs");
 
 // step 1: callback
 
-const hasNameCallback = target => {
+const countNameCallback = target => {
   fs.readFile("./data.csv", (err, buffer) => {
     if (err) {
       console.log(err);
@@ -15,7 +15,7 @@ const hasNameCallback = target => {
 
 // step 2: promises
 
-const hasNamePromise = target => {
+const countNamePromise = target => {
   readTheFile("./data.csv").then(
     res => {
       console.log(countInArr(res, target));
@@ -39,7 +39,7 @@ const readTheFile = path => {
 
 // step 3: async await
 
-const hasNameAsyncAwait = async target => {
+const countNameAsyncAwait = async target => {
   try {
     const names = await readTheFile("./data.csv");
     console.log(countInArr(names, target));
